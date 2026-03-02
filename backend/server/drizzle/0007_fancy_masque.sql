@@ -1,0 +1,1 @@
+ALTER TABLE `pets` ADD `images` text;

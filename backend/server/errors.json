@@ -1,0 +1,57 @@
+[
+  {
+    "module": "COMMON",
+    "description": "通用",
+    "prefix": 1000,
+    "errors": [
+      { "key": "UNKNOWN", "code": 10000500, "desc": "未知的服务器内部错误", "message": { "zh-Hans": "系统错误", "zh-Hant": "系統錯誤", "en": "System error" } },
+      { "key": "PARAM_INVALID", "code": 10000400, "desc": "请求参数校验失败", "message": { "zh-Hans": "参数错误", "zh-Hant": "參數錯誤", "en": "Invalid parameters" } },
+      { "key": "UNAUTHORIZED", "code": 10000401, "desc": "未携带有效的认证凭证", "message": { "zh-Hans": "未登录", "zh-Hant": "未登入", "en": "Unauthorized" } },
+      { "key": "FORBIDDEN", "code": 10000403, "desc": "已认证但无权访问该资源", "message": { "zh-Hans": "无权限", "zh-Hant": "無權限", "en": "Forbidden" } },
+      { "key": "NOT_FOUND", "code": 10000404, "desc": "请求的资源不存在", "message": { "zh-Hans": "资源不存在", "zh-Hant": "資源不存在", "en": "Not found" } }
+    ]
+  },
+  {
+    "module": "AUTH",
+    "description": "认证",
+    "prefix": 1001,
+    "errors": [
+      { "key": "WECHAT_LOGIN_FAILED", "code": 10010001, "desc": "小程序 jscode2session 调用失败", "message": { "zh-Hans": "微信登录失败", "zh-Hant": "微信登入失敗", "en": "WeChat login failed" } },
+      { "key": "WECHAT_PHONE_FAILED", "code": 10010002, "desc": "小程序获取手机号接口调用失败", "message": { "zh-Hans": "获取手机号失败", "zh-Hant": "取得手機號碼失敗", "en": "Failed to get phone number" } },
+      { "key": "WECHAT_OAUTH_FAILED", "code": 10010003, "desc": "微信 OAuth code 换 token 失败", "message": { "zh-Hans": "微信授权失败", "zh-Hant": "微信授權失敗", "en": "WeChat OAuth failed" } },
+      { "key": "GOOGLE_TOKEN_INVALID", "code": 10010004, "desc": "Google ID Token 验证失败或 audience 不匹配", "message": { "zh-Hans": "Google 令牌无效", "zh-Hant": "Google 令牌無效", "en": "Invalid Google token" } },
+      { "key": "SESSION_EXPIRED", "code": 10010005, "desc": "会话已过期或 JWT 验证失败", "message": { "zh-Hans": "登录已过期，请重新登录", "zh-Hant": "登入已過期，請重新登入", "en": "Session expired, please login again" } },
+      { "key": "SESSION_KICKED", "code": 10010006, "desc": "会话被管理员或其他设备踢出", "message": { "zh-Hans": "账号已在其他设备登录", "zh-Hant": "帳號已在其他裝置登入", "en": "Account logged in on another device" } },
+      { "key": "ADMIN_LOGIN_FAILED", "code": 10010007, "desc": "管理员用户名或密码错误", "message": { "zh-Hans": "用户名或密码错误", "zh-Hant": "使用者名稱或密碼錯誤", "en": "Invalid username or password" } }
+    ]
+  },
+  {
+    "module": "PET",
+    "description": "宠物",
+    "prefix": 1002,
+    "errors": [
+      { "key": "NOT_FOUND", "code": 10020001, "desc": "指定的宠物 ID 不存在", "message": { "zh-Hans": "宠物不存在", "zh-Hant": "寵物不存在", "en": "Pet not found" } }
+    ]
+  },
+  {
+    "module": "DEVICE",
+    "description": "设备",
+    "prefix": 1003,
+    "errors": [
+      { "key": "NOT_FOUND", "code": 10030001, "desc": "指定的设备 ID 不存在", "message": { "zh-Hans": "设备不存在", "zh-Hant": "裝置不存在", "en": "Device not found" } },
+      { "key": "ALREADY_BOUND", "code": 10030002, "desc": "设备已绑定到其他宠物", "message": { "zh-Hans": "设备已绑定", "zh-Hant": "裝置已綁定", "en": "Device already bound" } },
+      { "key": "CODE_INVALID", "code": 10030003, "desc": "激活码不存在或已使用", "message": { "zh-Hans": "激活码无效", "zh-Hant": "啟用碼無效", "en": "Invalid activation code" } },
+      { "key": "ALREADY_ACTIVATED", "code": 10030004, "desc": "设备已被其他用户激活", "message": { "zh-Hans": "设备已被激活", "zh-Hant": "裝置已被啟用", "en": "Device already activated" } },
+      { "key": "NOT_ACTIVATED", "code": 10030005, "desc": "设备尚未激活，无法绑定宠物", "message": { "zh-Hans": "设备未激活", "zh-Hant": "裝置未啟用", "en": "Device not activated" } },
+      { "key": "NOT_OWNED", "code": 10030006, "desc": "设备不属于当前用户", "message": { "zh-Hans": "无权操作此设备", "zh-Hant": "無權操作此裝置", "en": "Not your device" } }
+    ]
+  },
+  {
+    "module": "SCAN",
+    "description": "扫码",
+    "prefix": 1004,
+    "errors": [
+      { "key": "DEVICE_NOT_FOUND", "code": 10040001, "desc": "扫码对应的设备 ID 不存在", "message": { "zh-Hans": "扫码设备不存在", "zh-Hant": "掃碼裝置不存在", "en": "Scanned device not found" } }
+    ]
+  }
+]
