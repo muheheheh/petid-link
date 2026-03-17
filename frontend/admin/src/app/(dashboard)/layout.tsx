@@ -40,7 +40,7 @@ const menuItems = [
     label: "宠物管理",
     children: [
       { key: "/pets", label: "宠物列表" },
-      { key: "/scan-logs", label: "扫码记录" },
+      { key: "/lost-events", label: "丢失事件" },
     ],
   },
   {
@@ -49,6 +49,7 @@ const menuItems = [
     label: "设备管理",
     children: [
       { key: "/devices", label: "设备列表" },
+      { key: "/scan-logs", label: "扫码记录" },
     ],
   },
   {

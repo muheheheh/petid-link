@@ -29,7 +29,7 @@ scanLog.openapi(
   }),
   async (c) => {
     const { page, page_size, device_id, pet_id } = c.req.valid("json");
-    const result = getScanLogList({ page, pageSize: page_size, deviceId: device_id, petId: pet_id });
+    const result = await getScanLogList({ page, pageSize: page_size, deviceId: device_id, petId: pet_id });
     return ok(c, result);
   },
 );

@@ -20,7 +20,7 @@ user.openapi(
     method: "post",
     path: "/list",
     tags: ["用户管理"],
-    summary:"用户列表",
+    summary: "用户列表",
     middleware: [adminAuth],
     security: [{ Bearer: [] }],
     request: {
@@ -35,7 +35,7 @@ user.openapi(
   }),
   async (c) => {
     const { page, page_size, keyword, user_id } = c.req.valid("json");
-    const result = getUserList({ page, pageSize: page_size, keyword, userId: user_id });
+    const result = await getUserList({ page, pageSize: page_size, keyword, userId: user_id });
     return ok(c, result);
   },
 );
@@ -49,7 +49,7 @@ user.openapi(
     middleware: [adminAuth],
     security: [{ Bearer: [] }],
     request: {
-   body: { content: { "application/json": { schema: adminUserDetailSchema.body } } },
+      body: { content: { "application/json": { schema: adminUserDetailSchema.body } } },
     },
     responses: {
       200: {
@@ -60,7 +60,7 @@ user.openapi(
   }),
   async (c) => {
     const { id } = c.req.valid("json");
-    const detail = getUserDetail(id);
+    const detail = await getUserDetail(id);
     return ok(c, detail);
   },
 );
@@ -85,7 +85,7 @@ user.openapi(
   }),
   async (c) => {
     const { user_id, page, page_size } = c.req.valid("json");
-    const result = getUserSessionList(user_id, { page, pageSize: page_size });
+    const result = await getUserSessionList(user_id, { page, pageSize: page_size });
     return ok(c, result);
   },
 );
@@ -110,7 +110,7 @@ user.openapi(
   }),
   async (c) => {
     const { session_id } = c.req.valid("json");
-    kickUserSessionById(session_id);
+    await kickUserSessionById(session_id);
     return ok(c, null);
   },
 );

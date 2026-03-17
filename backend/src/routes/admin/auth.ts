@@ -4,8 +4,7 @@ import adminErrors from "@/errors/admin";
 import type { AppEnv } from "@/types";
 import { ok } from "@/response";
 import { createAdminSession, logoutAdminSession, touchAdminSession } from "@/services/session";
-import { verifyAdminCredentials, changeAdminPassword } from "@/services/admin";
-import { getAdminInfo } from "@/services/admin";
+import { verifyAdminCredentials, changeAdminPassword, getAdminInfo } from "@/services/admin";
 import { extractDeviceInfo } from "@/services/client";
 import { adminAuth } from "@/middleware/auth";
 import { adminLoginSchema, logoutSchema, adminMeSchema, heartbeatSchema, changePasswordSchema } from "@/schemas/auth";
@@ -55,7 +54,7 @@ auth.openapi(
   }),
   async (c) => {
     const sessionId = c.get("sessionId");
-    logoutAdminSession(sessionId);
+    await logoutAdminSession(sessionId);
     return ok(c, null);
   },
 );
@@ -77,7 +76,7 @@ auth.openapi(
   }),
   async (c) => {
     const adminId = c.get("adminId");
-    const admin = getAdminInfo(adminId);
+    const admin = await getAdminInfo(adminId);
     return ok(c, admin);
   },
 );
@@ -99,7 +98,7 @@ auth.openapi(
   }),
   async (c) => {
     const sessionId = c.get("sessionId");
-    touchAdminSession(sessionId);
+    await touchAdminSession(sessionId);
     return ok(c, null);
   },
 );

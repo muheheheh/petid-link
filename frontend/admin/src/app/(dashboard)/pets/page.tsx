@@ -50,10 +50,11 @@ export default function PetsPage() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const filterUserId = searchParams.get("user_id") || undefined;
+  const filterKeyword = searchParams.get("keyword") || undefined;
   const [data, setData] = useState<PaginatedData<Pet> | null>(null);
   const [page, setPage] = useState(1);
   const [pageSize, setPageSize] = useState(20);
-  const [keyword, setKeyword] = useState("");
+  const [keyword, setKeyword] = useState(filterKeyword || "");
   const [userIdFilter, setUserIdFilter] = useState(filterUserId || "");
   const [statusFilter, setStatusFilter] = useState<string[]>([]);
   const [loading, setLoading] = useState(false);
@@ -74,7 +75,7 @@ export default function PetsPage() {
     } finally {
       setLoading(false);
     }
-  }, [page, pageSize, keyword, filterUserId, userIdFilter, statusFilter]);
+  }, [page, pageSize, keyword, filterUserId, filterKeyword, userIdFilter, statusFilter]);
 
   useEffect(() => { fetchList(); }, [fetchList]);
 

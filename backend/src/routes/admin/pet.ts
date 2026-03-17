@@ -4,8 +4,8 @@ import adminErrors from "@/errors/admin";
 import type { AppEnv } from "@/types";
 import { ok } from "@/response";
 import { adminAuth } from "@/middleware/auth";
-import { getPetList, getPetDetail } from "@/services/admin";
-import { adminPetListSchema, adminPetDetailSchema } from "@/schemas/admin";
+import { getPetList, getPetDetail, getLostEventList } from "@/services/admin";
+import { adminPetListSchema, adminPetDetailSchema, adminLostEventListSchema } from "@/schemas/admin";
 
 const pet = createOpenAPI<AppEnv>(adminErrors);
 
@@ -29,7 +29,7 @@ pet.openapi(
   }),
   async (c) => {
     const { page, page_size, keyword, user_id, status } = c.req.valid("json");
-    const result = getPetList({ page, pageSize: page_size, keyword, userId: user_id, status });
+    const result = await getPetList({ page, pageSize: page_size, keyword, userId: user_id, status });
     return ok(c, result);
   },
 );
@@ -55,8 +55,33 @@ pet.openapi(
   }),
   async (c) => {
     const { id } = c.req.valid("json");
-    const detail = getPetDetail(id);
+    const detail = await getPetDetail(id);
     return ok(c, detail);
+  },
+);
+
+pet.openapi(
+  createRoute({
+    method: "post",
+    path: "/lost-events",
+    tags: ["宠物管理"],
+    summary: "丢失事件列表",
+    middleware: [adminAuth],
+    security: [{ Bearer: [] }],
+    request: {
+      body: { content: { "application/json": { schema: adminLostEventListSchema.body } } },
+    },
+    responses: {
+      200: {
+        content: { "application/json": { schema: adminLostEventListSchema.response } },
+        description: "查询成功",
+      },
+    },
+  }),
+  async (c) => {
+    const { page, page_size, pet_id, status } = c.req.valid("json");
+    const result = await getLostEventList({ page, pageSize: page_size, petId: pet_id, status });
+    return ok(c, result);
   },
 );
 

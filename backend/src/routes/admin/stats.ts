@@ -48,6 +48,7 @@ stats.openapi(
               recent_scans: z.array(z.object({
                 id: z.string(),
                 device_id: z.string().nullable(),
+                device_sn: z.string().nullable(),
                 pet_name: z.string().nullable(),
                 scanned_at: z.number().nullable(),
               })),
@@ -60,7 +61,7 @@ stats.openapi(
   }),
   async (c) => {
     const { start_time, end_time } = c.req.valid("json");
-    const result = getDashboardStats(start_time, end_time);
+    const result = await getDashboardStats(start_time, end_time);
     return ok(c, result);
   },
 );

@@ -29,7 +29,7 @@ user.openapi(
   }),
   async (c) => {
     const userId = c.get("userId");
-    const row = db.select().from(users).where(eq(users.id, userId)).get();
+    const [row] = await db.select().from(users).where(eq(users.id, userId)).limit(1);
     if (!row) throw new BizError(ERR.COMMON_NOT_FOUND);
     return ok(c, {
       id: row.id,
@@ -67,7 +67,7 @@ user.openapi(
     if (body.nickname !== undefined) updates.nickname = body.nickname;
     if (body.avatar !== undefined) updates.avatar = body.avatar;
     if (Object.keys(updates).length > 0) {
-      db.update(users).set(updates).where(eq(users.id, userId)).run();
+      await db.update(users).set(updates).where(eq(users.id, userId));
     }
     return ok(c, null);
   },

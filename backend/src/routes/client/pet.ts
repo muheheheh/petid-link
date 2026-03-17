@@ -30,7 +30,7 @@ pet.openapi(
   async (c) => {
     const body = c.req.valid("json");
     const userId = c.get("userId");
-    const id = createPet({
+    const id = await createPet({
       userId,
       name: body.name,
       avatar: body.avatar,
@@ -67,7 +67,7 @@ pet.openapi(
   async (c) => {
     const body = c.req.valid("json");
     const userId = c.get("userId");
-    updatePet({
+    await updatePet({
       id: body.id,
       userId,
       name: body.name,
@@ -102,7 +102,7 @@ pet.openapi(
   }),
   async (c) => {
     const userId = c.get("userId");
-    const list = getUserPets(userId);
+    const list = await getUserPets(userId);
     return ok(c, list);
   },
 );
@@ -128,7 +128,7 @@ pet.openapi(
   async (c) => {
     const { id } = c.req.valid("json");
     const userId = c.get("userId");
-    const detail = getPetDetail(id, userId);
+    const detail = await getPetDetail(id, userId);
     return ok(c, detail);
   },
 );
@@ -139,7 +139,7 @@ pet.openapi(
     path: "/toggle-status",
     tags: ["宠物"],
     summary: "切换宠物状态",
-    description: "在 normal（正常）和 lost（走丢）之间切换",
+    description: "在 normal（正常）和 lost（走丢）之间切换，自动创建/关闭丢失事件",
     middleware: [clientAuth],
     security: [{ Bearer: [] }],
     request: {
@@ -155,7 +155,7 @@ pet.openapi(
   async (c) => {
     const { id, status } = c.req.valid("json");
     const userId = c.get("userId");
-    togglePetStatus(id, userId, status);
+    await togglePetStatus(id, userId, status);
     return ok(c, null);
   },
 );
@@ -182,7 +182,7 @@ pet.openapi(
   async (c) => {
     const { id } = c.req.valid("json");
     const userId = c.get("userId");
-    deletePet(id, userId);
+    await deletePet(id, userId);
     return ok(c, null);
   },
 );

@@ -39,7 +39,7 @@ manager.openapi(
   }),
   async (c) => {
     const { page, page_size, keyword } = c.req.valid("json");
-    const result = getAdminList({ page, pageSize: page_size, keyword });
+    const result = await getAdminList({ page, pageSize: page_size, keyword });
     return ok(c, result);
   },
 );
@@ -97,7 +97,7 @@ manager.openapi(
     const isSelf = id === currentId;
 
     if (!isSelf) {
-      const target = getAdminInfo(id);
+      const target = await getAdminInfo(id);
       if (!canManageRole(currentRole, target.role)) throw new BizError(ERR.COMMON_FORBIDDEN);
       if (role && !canManageRole(currentRole, role)) throw new BizError(ERR.COMMON_FORBIDDEN);
       await updateAdmin(id, nickname, email, password, role, username);
@@ -131,9 +131,9 @@ manager.openapi(
     const currentId = c.get("adminId");
     const currentRole = c.get("adminRole");
     if (id === currentId) throw new BizError(ERR.COMMON_FORBIDDEN);
-    const target = getAdminInfo(id);
+    const target = await getAdminInfo(id);
     if (!canManageRole(currentRole, target.role)) throw new BizError(ERR.COMMON_FORBIDDEN);
-    deleteAdmin(id);
+    await deleteAdmin(id);
     return ok(c, null);
   },
 );
@@ -161,7 +161,7 @@ manager.openapi(
     const currentId = c.get("adminId");
     const currentRole = c.get("adminRole");
     if (id === currentId) throw new BizError(ERR.COMMON_FORBIDDEN);
-    const target = getAdminInfo(id);
+    const target = await getAdminInfo(id);
     if (!canManageRole(currentRole, target.role)) throw new BizError(ERR.COMMON_FORBIDDEN);
     await updateAdmin(id, undefined, undefined, new_password);
     return ok(c, null);
@@ -192,15 +192,15 @@ manager.openapi(
     const currentRole = c.get("adminRole");
 
     if (currentRole === "super_admin") {
-      const result = getAdminSessionList({ page, pageSize: page_size, adminId: admin_id });
+      const result = await getAdminSessionList({ page, pageSize: page_size, adminId: admin_id });
       return ok(c, result);
     }
 
     if (admin_id && admin_id !== currentId) {
-      const target = getAdminInfo(admin_id);
+      const target = await getAdminInfo(admin_id);
       if (!canManageRole(currentRole, target.role)) throw new BizError(ERR.COMMON_FORBIDDEN);
     }
-    const result = getAdminSessionList({ page, pageSize: page_size, adminId: admin_id || currentId, currentRole, currentId });
+    const result = await getAdminSessionList({ page, pageSize: page_size, adminId: admin_id || currentId, currentRole, currentId });
     return ok(c, result);
   },
 );
@@ -229,14 +229,14 @@ manager.openapi(
     const currentId = c.get("adminId");
 
     if (currentRole !== "super_admin") {
-      const ownerId = getAdminSessionOwnerId(session_id);
+      const ownerId = await getAdminSessionOwnerId(session_id);
       if (ownerId && ownerId !== currentId) {
-        const target = getAdminInfo(ownerId);
+        const target = await getAdminInfo(ownerId);
         if (!canManageRole(currentRole, target.role)) throw new BizError(ERR.COMMON_FORBIDDEN);
       }
     }
 
-    kickAdminSessionById(session_id);
+    await kickAdminSessionById(session_id);
     return ok(c, null);
   },
 );

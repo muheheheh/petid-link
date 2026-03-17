@@ -4,6 +4,7 @@ import { successResponse, errorResponse } from "@/schemas/common";
 const contactItem = z.object({
   type: z.string(),
   value: z.string(),
+  qr_key: z.string().optional(),
 });
 
 const petObject = z.object({
