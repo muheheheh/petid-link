@@ -41,7 +41,7 @@ async function request<T>(path: string, body?: unknown): Promise<T> {
   const json: ApiResponse<T> = await res.json();
 
   if (json.code !== 0) {
-    if (json.code === 10010005 || json.code === 10010006) {
+    if (json.code === 10010002 || json.code === 10010003) {
       if (typeof window !== "undefined") {
         clearAuth();
         message.error(json.message);

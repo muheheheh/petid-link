@@ -1,0 +1,12 @@
+[
+  {
+    "module": "AUTH",
+    "description": "认证",
+    "prefix": 1001,
+    "errors": [
+      { "key": "LOGIN_FAILED", "code": 10010001, "desc": "管理员用户名或密码错误", "message": { "zh-Hans": "用户名或密码错误", "zh-Hant": "使用者名稱或密碼錯誤", "en": "Invalid username or password" } },
+      { "key": "SESSION_EXPIRED", "code": 10010002, "desc": "会话已过期或 JWT 验证失败", "message": { "zh-Hans": "登录已过期，请重新登录", "zh-Hant": "登入已過期，請重新登入", "en": "Session expired, please login again" } },
+      { "key": "SESSION_KICKED", "code": 10010003, "desc": "会话被踢出", "message": { "zh-Hans": "账号已在其他设备登录", "zh-Hant": "帳號已在其他裝置登入", "en": "Account logged in on another device" } }
+    ]
+  }
+]

@@ -1,0 +1,43 @@
+[
+  {
+    "module": "AUTH",
+    "description": "认证",
+    "prefix": 1001,
+    "errors": [
+      { "key": "WECHAT_LOGIN_FAILED", "code": 10010001, "desc": "小程序 jscode2session 调用失败", "message": { "zh-Hans": "微信登录失败", "zh-Hant": "微信登入失敗", "en": "WeChat login failed" } },
+      { "key": "WECHAT_PHONE_FAILED", "code": 10010002, "desc": "小程序获取手机号接口调用失败", "message": { "zh-Hans": "获取手机号失败", "zh-Hant": "取得手機號碼失敗", "en": "Failed to get phone number" } },
+      { "key": "WECHAT_OAUTH_FAILED", "code": 10010003, "desc": "微信 OAuth code 换 token 失败", "message": { "zh-Hans": "微信授权失败", "zh-Hant": "微信授權失敗", "en": "WeChat OAuth failed" } },
+      { "key": "SESSION_EXPIRED", "code": 10010004, "desc": "会话已过期或 JWT 验证失败", "message": { "zh-Hans": "登录已过期，请重新登录", "zh-Hant": "登入已過期，請重新登入", "en": "Session expired, please login again" } },
+      { "key": "SESSION_KICKED", "code": 10010005, "desc": "会话被踢出", "message": { "zh-Hans": "账号已在其他设备登录", "zh-Hant": "帳號已在其他裝置登入", "en": "Account logged in on another device" } },
+      { "key": "CODE_SEND_TOO_FAST", "code": 10010006, "desc": "验证码发送过于频繁", "message": { "zh-Hans": "发送过于频繁，请稍后再试", "zh-Hant": "發送過於頻繁，請稍後再試", "en": "Too many requests, please try again later" } },
+      { "key": "CODE_INVALID", "code": 10010007, "desc": "验证码错误或已过期", "message": { "zh-Hans": "验证码错误或已过期", "zh-Hant": "驗證碼錯誤或已過期", "en": "Invalid or expired verification code" } },
+      { "key": "CODE_SEND_FAILED", "code": 10010008, "desc": "验证码发送失败", "message": { "zh-Hans": "验证码发送失败，请稍后再试", "zh-Hant": "驗證碼發送失敗，請稍後再試", "en": "Failed to send verification code" } }
+    ]
+  },
+  {
+    "module": "PET",
+    "description": "宠物",
+    "prefix": 1002,
+    "errors": [
+      { "key": "NOT_FOUND", "code": 10020001, "desc": "指定的宠物 ID 不存在", "message": { "zh-Hans": "宠物不存在", "zh-Hant": "寵物不存在", "en": "Pet not found" } }
+    ]
+  },
+  {
+    "module": "DEVICE",
+    "description": "设备",
+    "prefix": 1003,
+    "errors": [
+      { "key": "NOT_FOUND", "code": 10030001, "desc": "指定的设备 ID 不存在", "message": { "zh-Hans": "设备不存在", "zh-Hant": "裝置不存在", "en": "Device not found" } },
+      { "key": "ALREADY_BOUND", "code": 10030002, "desc": "设备已被其他用户绑定", "message": { "zh-Hans": "设备已被绑定", "zh-Hant": "裝置已被綁定", "en": "Device already bound" } },
+      { "key": "NOT_OWNED", "code": 10030003, "desc": "设备不属于当前用户", "message": { "zh-Hans": "无权操作此设备", "zh-Hant": "無權操作此裝置", "en": "Not your device" } }
+    ]
+  },
+  {
+    "module": "SCAN",
+    "description": "扫码",
+    "prefix": 1004,
+    "errors": [
+      { "key": "DEVICE_NOT_FOUND", "code": 10040001, "desc": "扫码对应的设备 ID 不存在", "message": { "zh-Hans": "扫码设备不存在", "zh-Hant": "掃碼裝置不存在", "en": "Scanned device not found" } }
+    ]
+  }
+]

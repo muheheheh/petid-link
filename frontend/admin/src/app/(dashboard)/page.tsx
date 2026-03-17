@@ -18,8 +18,8 @@ interface Stats {
   new_pet_count: number;
   device_count: number;
   new_device_count: number;
-  device_activated_count: number;
-  device_bound_count: number;
+  device_bound_user_count: number;
+  device_bound_pet_count: number;
   lost_pet_count: number;
   scan_count: number;
   recent_scans: { id: string; device_id: string | null; pet_name: string | null; scanned_at: number | null }[];
@@ -146,8 +146,8 @@ export default function DashboardPage() {
           <div style={{ fontSize: 15, fontWeight: 600, marginBottom: 16, color: token.colorText }}>数据概览</div>
           <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
             {[
-              { label: "已激活设备", value: stats?.device_activated_count ?? "-", total: stats?.device_count },
-              { label: "已绑定设备", value: stats?.device_bound_count ?? "-", total: stats?.device_count },
+              { label: "已绑定用户", value: stats?.device_bound_user_count ?? "-", total: stats?.device_count },
+              { label: "已绑定宠物", value: stats?.device_bound_pet_count ?? "-", total: stats?.device_count },
               { label: "走丢宠物", value: stats?.lost_pet_count ?? "-", total: stats?.pet_count },
             ].map((item) => {
               const pct = typeof item.value === "number" && typeof item.total === "number" && item.total > 0

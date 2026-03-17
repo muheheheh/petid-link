@@ -25,11 +25,10 @@ interface UserDetail extends User {
 }
 
 const AUTH_PROVIDER_LABELS: Record<string, string> = {
+  phone: "手机验证码",
+  email: "邮箱验证码",
   wechat_miniprogram: "微信小程序",
-  wechat_app: "微信 App",
-  wechat_open: "微信开放平台",
-  wechat_mp: "微信公众号",
-  google: "Google",
+  wechat_mp: "微信服务号",
 };
 
 interface Session {
@@ -47,9 +46,7 @@ interface Session {
 
 interface DeviceItem {
   id: string;
-  activation_code: string;
   pet_id: string | null;
-  activated_at: number | null;
   bound_at: number | null;
   created_at: number | null;
 }
@@ -180,9 +177,8 @@ export default function UsersPage() {
 
   const deviceColumns: ColumnsType<DeviceItem> = [
     { title: "设备 ID", dataIndex: "id", ellipsis: true, render: (v) => <CopyableText text={v} /> },
-    { title: "激活码", dataIndex: "activation_code", render: (v) => <CopyableText text={v} /> },
     { title: "绑定宠物", dataIndex: "pet_id", render: (v) => v ? <Tag color="green">已绑定</Tag> : <Tag>未绑定</Tag> },
-    { title: "激活时间", dataIndex: "activated_at", render: (v) => formatTime(v) },
+    { title: "绑定时间", dataIndex: "bound_at", render: (v) => formatTime(v) },
   ];
 
   const petColumns: ColumnsType<PetItem> = [

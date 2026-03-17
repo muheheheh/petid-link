@@ -1,0 +1,41 @@
+{
+  "name": "server",
+  "module": "src/client.ts",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "dev": "bun run --hot src/client.ts & bun run --hot src/admin.ts",
+    "dev:client": "bun run --hot src/client.ts",
+    "dev:admin": "bun run --hot src/admin.ts",
+    "start:client": "bun run src/client.ts",
+    "start:admin": "bun run src/admin.ts",
+    "db:generate": "bunx drizzle-kit generate",
+    "db:migrate": "bunx drizzle-kit migrate",
+    "db:studio": "bunx drizzle-kit studio",
+    "gen-errors": "bun run scripts/gen-errors.ts",
+    "infra:up": "docker compose up -d",
+    "infra:down": "docker compose down",
+    "infra:reset": "docker compose down -v && docker compose up -d"
+  },
+  "devDependencies": {
+    "@types/ali-oss": "^6.23.3",
+    "@types/bun": "latest",
+    "@types/nodemailer": "^7.0.11",
+    "drizzle-kit": "^0.31.9"
+  },
+  "peerDependencies": {
+    "typescript": "^5"
+  },
+  "dependencies": {
+    "@alicloud/dysmsapi20170525": "^4.5.0",
+    "@alicloud/openapi-client": "^0.4.15",
+    "@hono/zod-openapi": "^1.2.2",
+    "@scalar/hono-api-reference": "^0.9.46",
+    "ali-oss": "^6.23.0",
+    "drizzle-orm": "^0.45.1",
+    "hono": "^4.12.2",
+    "ioredis": "^5.10.0",
+    "nodemailer": "^8.0.2",
+    "zod": "^4.3.6"
+  }
+}

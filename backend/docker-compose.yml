@@ -1,0 +1,52 @@
+services:
+  postgres:
+    image: ghcr.io/pgmq/pg16-pgmq:v1.10.0
+    container_name: petid-postgres
+    restart: unless-stopped
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_DB: petid
+      POSTGRES_USER: petid
+      POSTGRES_PASSWORD: Pt!d_5v3R#xK9mQ2
+      TZ: Asia/Shanghai
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+      - ./resources/initdb:/docker-entrypoint-initdb.d:ro
+    command:
+      - postgres
+      - -c
+      - timezone=Asia/Shanghai
+      - -c
+      - log_timezone=Asia/Shanghai
+      - -c
+      - max_connections=100
+      - -c
+      - shared_buffers=128MB
+      - -c
+      - log_statement=ddl
+
+  redis:
+    image: redis:7-alpine
+    container_name: petid-redis
+    restart: unless-stopped
+    ports:
+      - "6379:6379"
+    environment:
+      TZ: Asia/Shanghai
+    command:
+      - redis-server
+      - --requirepass
+      - Rd!s_8wL#pN4vJ7z
+      - --maxmemory
+      - 256mb
+      - --maxmemory-policy
+      - allkeys-lru
+      - --appendonly
+      - "yes"
+    volumes:
+      - redisdata:/data
+
+volumes:
+  pgdata:
+  redisdata:

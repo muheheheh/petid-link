@@ -41,7 +41,7 @@ interface PetDetail extends Pet {
   remark: string | null;
   images: string[] | null;
   user: { id: string; nickname: string | null; avatar: string | null; phone: string | null; email: string | null; created_at: number | null } | null;
-  device: { id: string; activation_code: string; activated_at: number | null; bound_at: number | null } | null;
+  device: { id: string; bound_at: number | null } | null;
 }
 
 const GENDER_MAP: Record<string, string> = { male: "公", female: "母", unknown: "未知" };

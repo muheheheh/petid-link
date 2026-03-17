@@ -15,23 +15,19 @@ import type { ColumnsType } from "antd/es/table";
 
 interface Device {
   id: string;
-  activation_code: string;
   batch: string | null;
   user_id: string | null;
   user_nickname: string | null;
   pet_id: string | null;
-  activated_at: number | null;
   bound_at: number | null;
   created_at: number | null;
 }
 
 interface DeviceDetail {
   id: string;
-  activation_code: string;
   batch: string | null;
   user_id: string | null;
   pet_id: string | null;
-  activated_at: number | null;
   bound_at: number | null;
   created_at: number | null;
   user: { id: string; nickname: string | null; avatar: string | null; phone: string | null; email: string | null; created_at: number | null } | null;
@@ -51,7 +47,7 @@ export default function DevicesPage() {
   const [statusFilter, setStatusFilter] = useState<string[]>([]);
   const [loading, setLoading] = useState(false);
   const [createOpen, setCreateOpen] = useState(false);
-  const [qrDevice, setQrDevice] = useState<{ id: string; activation_code: string } | null>(null);
+  const [qrDevice, setQrDevice] = useState<{ id: string } | null>(null);
   const [detailDevice, setDetailDevice] = useState<DeviceDetail | null>(null);
   const [detailLoading, setDetailLoading] = useState(false);
   const [form] = Form.useForm();
@@ -137,14 +133,13 @@ export default function DevicesPage() {
   }
 
   function statusTag(device: { user_id?: string | null; pet_id?: string | null }) {
-    if (device.pet_id) return <Tag color="green">已绑定</Tag>;
-    if (device.user_id) return <Tag color="blue">已激活</Tag>;
-    return <Tag>未激活</Tag>;
+    if (device.pet_id) return <Tag color="green">已绑定宠物</Tag>;
+    if (device.user_id) return <Tag color="blue">已绑定用户</Tag>;
+    return <Tag>未绑定</Tag>;
   }
 
   const columns: ColumnsType<Device> = [
     { title: "设备 ID", dataIndex: "id", width: 360, ellipsis: true, render: (v) => <CopyableText text={v} /> },
-    { title: "激活码", dataIndex: "activation_code", render: (v) => <CopyableText text={v} /> },
     { title: "批次", dataIndex: "batch", render: (v) => v ? <Tag>{v}</Tag> : "-" },
     { title: "用户", dataIndex: "user_id", render: (v, r) => {
       if (!v) return "-";
@@ -156,7 +151,6 @@ export default function DevicesPage() {
       );
     }},
     { title: "状态", render: (_, r) => statusTag(r) },
-    { title: "激活时间", dataIndex: "activated_at", render: (v) => formatTime(v) },
     { title: "绑定时间", dataIndex: "bound_at", render: (v) => formatTime(v) },
     { title: "创建时间", dataIndex: "created_at", render: (v) => formatTime(v) },
     {
@@ -198,9 +192,9 @@ export default function DevicesPage() {
             onChange={(v) => { setStatusFilter(v); setPage(1); }}
             style={{ minWidth: 200 }} allowClear
             options={[
-              { label: "未激活", value: "inactive" },
-              { label: "已激活", value: "activated" },
-              { label: "已绑定", value: "bound" },
+              { label: "未绑定", value: "unbound" },
+              { label: "已绑定用户", value: "bound" },
+              { label: "已绑定宠物", value: "bindPet" },
             ]} />
         </div>
         <div style={{ flex: 1 }} />
@@ -254,9 +248,6 @@ export default function DevicesPage() {
             <div style={{ marginTop: 16, fontFamily: "monospace", fontSize: 12, color: "#888", wordBreak: "break-all" }}>
               {getDeviceScanUrl(qrDevice.id)}
             </div>
-            <div style={{ marginTop: 8 }}>
-              <span style={{ fontFamily: "monospace" }}>激活码：{qrDevice.activation_code}</span>
-            </div>
             <Space style={{ marginTop: 16 }}>
               <Button icon={<Copy size={14} />} onClick={() => copyText(getDeviceScanUrl(qrDevice.id))}>复制链接</Button>
               <Button icon={<Download size={14} />} onClick={() => downloadQrCode(qrDevice.id)}>下载二维码</Button>
@@ -272,12 +263,10 @@ export default function DevicesPage() {
             <Descriptions.Item label="设备 ID" span={2}>
               <CopyableText text={detailDevice.id} />
             </Descriptions.Item>
-            <Descriptions.Item label="激活码"><CopyableText text={detailDevice.activation_code} /></Descriptions.Item>
             <Descriptions.Item label="批次">{detailDevice.batch || "-"}</Descriptions.Item>
             <Descriptions.Item label="状态">{statusTag(detailDevice)}</Descriptions.Item>
-            <Descriptions.Item label="激活时间">{formatTime(detailDevice.activated_at)}</Descriptions.Item>
             <Descriptions.Item label="绑定时间">{formatTime(detailDevice.bound_at)}</Descriptions.Item>
-            <Descriptions.Item label="创建时间" span={2}>{formatTime(detailDevice.created_at)}</Descriptions.Item>
+            <Descriptions.Item label="创建时间">{formatTime(detailDevice.created_at)}</Descriptions.Item>
             {detailDevice.user && (
               <>
                 <Descriptions.Item label="用户昵称">
